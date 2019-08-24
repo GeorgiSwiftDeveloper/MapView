@@ -33,22 +33,30 @@ class MapScreen: UIViewController {
     func checkLocationServices(){
         if CLLocationManager.locationServicesEnabled() {
             setupLocationManager()
+            checkLocationAuthorization()
         }else{
-            switch CLLocationManager.authorizationStatus() {
-            case .authorizedWhenInUse:
-                break
-            case .denied:
-                break
-            case .notDetermined:
-                break
-            case .restricted:
-                break
-            case .authorizedAlways:
-                break
-            }
         }
     }
 
+    
+    func checkLocationAuthorization() {
+        switch CLLocationManager.authorizationStatus() {
+        case .authorizedWhenInUse:
+            break
+        case .denied:
+            //Show alert instructiong them how to tern on permissions
+            break
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+            break
+        case .restricted:
+            //Show alert letting them khow
+            break
+        case .authorizedAlways:
+            break
+        }
+
+    }
 }
 
 extension MapScreen: CLLocationManagerDelegate {
