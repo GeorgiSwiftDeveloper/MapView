@@ -57,6 +57,8 @@ class MapScreen: UIViewController {
         case .authorizedWhenInUse:
             mapView.showsUserLocation = true
             centerViewOnUserLocation()
+            //Start update Location when user is moving
+            locationManager.startUpdatingLocation()
             break
         case .denied:
             //Show alert instructiong them how to tern on permissions
@@ -76,11 +78,14 @@ class MapScreen: UIViewController {
 
 extension MapScreen: CLLocationManagerDelegate {
     //UPDATE USER LOCATION AS THEY MOVE
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        <#code#>
-//    }
-//
-//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//        <#code#>
-//    }
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else {return}
+        let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let region = MKCoordinateRegion.init(center: center, latitudinalMeters: CLLocationDistance(regionMeters), longitudinalMeters: CLLocationDistance(regionMeters)  )
+        mapView.setRegion(region, animated: true)
+    }
+
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        checkLocationAuthorization()
+    }
 }
