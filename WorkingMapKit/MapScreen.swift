@@ -21,7 +21,7 @@ class MapScreen: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        checkLocationServices()
     }
     
     func setupLocationManager(){
@@ -61,11 +61,11 @@ class MapScreen: UIViewController {
 
 extension MapScreen: CLLocationManagerDelegate {
     //UPDATE USER LOCATION AS THEY MOVE
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        <#code#>
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        <#code#>
-    }
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        <#code#>
+//    }
+//    
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//        <#code#>
+//    }
 }
